@@ -606,6 +606,28 @@ p {
     font-weight: bold;
 }
 
+/* Show a red X for items that are not included */
+.pricing-features li.not-included:before {
+    content: "✗" !important;
+    color: #e53935 !important;
+}
+
+/* Also color the not-included line red for clarity */
+.pricing-features li.not-included {
+    color: inherit !important;
+}
+
+/* Extra specificity to ensure text is black even if other rules apply */
+.pricing .pricing-features ul li.not-included {
+    color: inherit !important;
+}
+
+/* Extra specificity to override any earlier rules */
+.pricing .pricing-features ul li.not-included:before {
+    content: "✗" !important;
+    color: #e53935 !important;
+}
+
 .pricing-features li:last-child {
     border-bottom: none;
 }

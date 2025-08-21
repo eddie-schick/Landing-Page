@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=1280, initial-scale=1">
     <title>SHAED</title>
     <meta name="description" content="SHAED eliminates 40+ manual steps per sale while connecting your entire ecosystem—from OEMs to upfitters to end customers—in one unified system. Proven 167% ROI.">
     <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=redx3">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -282,7 +282,7 @@
                         <li>National inventory platform</li>
                         <li>Dealer branded storefronts</li>
                         <li>Integrated buyer journey</li>
-                        <li>80% reduction in listing time</li>
+                        <li>Automated inventory upload through DMS integration</li>
                     </ul>
                     <span class="learn-more">Click to learn more →</span>
                 </div>
@@ -359,7 +359,7 @@
                             <li>1 location</li>
                             <li>100GB storage</li>
                             <li>Email support</li>
-                            <li>Standard integrations</li>
+                            <li class="not-included">Custom integrations billed separate</li>
                         </ul>
                     </div>
                     <button class="pricing-button">Get Started</button>
@@ -377,7 +377,7 @@
                             <li>Up to 3 locations</li>
                             <li>500GB storage</li>
                             <li>Priority support</li>
-                            <li>Advanced integrations</li>
+                            <li class="not-included">Custom integrations billed separate</li>
                         </ul>
                     </div>
                     <button class="pricing-button">Get Started</button>
@@ -394,7 +394,7 @@
                             <li>Unlimited locations</li>
                             <li>Unlimited storage</li>
                             <li>Dedicated success manager</li>
-                            <li>Custom integrations</li>
+                            <li class="not-included">Custom integrations billed separate</li>
                         </ul>
                     </div>
                     <button class="pricing-button">Get Started</button>
@@ -416,58 +416,36 @@
                     <h3>Your Current Operations</h3>
                     
                     <div class="input-group">
-                        <label for="annual-dms-spend">Annual DMS/Software Spend</label>
-                        <input type="number" id="annual-dms-spend" value="500000" min="0" step="1000">
-                        <span class="input-suffix">per year</span>
-                    </div>
-                    
-                    <div class="input-group">
-                        <label for="disconnected-systems">Number of Disconnected Systems</label>
-                        <input type="number" id="disconnected-systems" value="7" min="1" max="20">
-                        <span class="input-suffix">systems</span>
-                    </div>
-                    
-                    <div class="input-group">
-                        <label for="vehicles-annually">Vehicles Sold/Processed Annually</label>
-                        <input type="number" id="vehicles-annually" value="500" min="1" step="10">
-                        <span class="input-suffix">vehicles</span>
-                    </div>
-                    
-                    <div class="input-group">
                         <label for="admin-ftes">FTEs for Administrative Tasks</label>
                         <input type="number" id="admin-ftes" value="3" min="1" max="50" step="0.5">
                         <span class="input-suffix">employees</span>
                     </div>
                     
                     <div class="input-group">
-                        <label for="avg-vehicle-value">Average Vehicle Value</label>
-                        <input type="number" id="avg-vehicle-value" value="75000" min="1000" step="1000">
+                        <label for="vehicles-annually">Vehicles Sold Annually</label>
+                        <input type="number" id="vehicles-annually" value="2000" min="1" step="10">
+                        <span class="input-suffix">vehicles</span>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="avg-vehicle-value">Average Vehicle Cost</label>
+                        <input type="number" id="avg-vehicle-value" value="50000" min="1000" step="1000">
                         <span class="input-suffix">per vehicle</span>
                     </div>
                     
                     <div class="input-group">
-                        <label for="daily-interest-rate">Daily Interest/Carrying Cost Rate</label>
-                        <input type="number" id="daily-interest-rate" value="0.02" min="0.001" max="1" step="0.001">
-                        <span class="input-suffix">% per day</span>
+                        <label for="annual-interest-rate">Annual Interest Rate</label>
+                        <input type="number" id="annual-interest-rate" value="8" min="0" max="100" step="0.1">
+                        <span class="input-suffix">% per year</span>
                     </div>
                     
-                    <div class="input-group">
-                        <label for="processing-days">Current Transaction Processing Time</label>
-                        <input type="number" id="processing-days" value="14" min="1" max="90">
-                        <span class="input-suffix">days</span>
-                    </div>
                 </div>
                 
                 <div class="calculator-results">
                     <h3>Your Projected Savings with SHAED</h3>
                     
                     <div class="results-summary">
-                        <div class="total-roi">
-                            <div class="roi-percentage">
-                                <span id="roi-percentage">167</span>%
-                            </div>
-                            <div class="roi-label">Annual ROI</div>
-                        </div>
+                        
                         
                         <div class="total-savings">
                             <div class="savings-amount">
@@ -492,44 +470,16 @@
                             <div class="category-details">
                                 <h4>Product Savings</h4>
                                 <div class="category-amount">$<span id="product-savings">978,000</span></div>
-                                <p>Interest cost savings from faster processing</p>
+                                <p>Holding cost reduction as a result of automated processing</p>
                             </div>
                         </div>
                         
-                        <div class="savings-category">
-                            <div class="category-icon productivity-icon">📈</div>
-                            <div class="category-details">
-                                <h4>Productivity Gains</h4>
-                                <div class="category-amount">$<span id="productivity-gains">1,008,000</span></div>
-                                <p>Revenue enhancement from increased capacity</p>
-                            </div>
-                        </div>
+                        
                     </div>
                     
-                    <div class="efficiency-metrics">
-                        <h4>Additional Benefits</h4>
-                        <div class="metrics-grid">
-                            <div class="metric">
-                                <div class="metric-value">40+</div>
-                                <div class="metric-label">Manual Steps Eliminated</div>
-                            </div>
-                            <div class="metric">
-                                <div class="metric-value"><span id="system-reduction">6</span>→1</div>
-                                <div class="metric-label">System Consolidation</div>
-                            </div>
-                            <div class="metric">
-                                <div class="metric-value">88%</div>
-                                <div class="metric-label">Time Reduction</div>
-                            </div>
-                            <div class="metric">
-                                <div class="metric-value">4.6/5</div>
-                                <div class="metric-label">Customer Satisfaction</div>
-                            </div>
-                        </div>
-                    </div>
+                    
                     
                     <div class="calculator-cta">
-                        <button class="cta-button" onclick="generateReport()">Get Detailed ROI Report</button>
                         <button class="cta-button secondary" onclick="scheduleDemo()">Schedule Demo</button>
                     </div>
                 </div>
@@ -614,16 +564,6 @@
                         </div>
                         <div class="form-group">
                             <input type="tel" id="phone" name="phone" placeholder="Phone Number" required>
-                        </div>
-                        <div class="form-group">
-                            <select id="dealer-type" name="dealer-type" required>
-                                <option value="">Select Dealer Type</option>
-                                <option value="class-4-8">Class 4-8 Commercial</option>
-                                <option value="class-1-3">Class 1-3 Commercial</option>
-                                <option value="upfitter">Upfitter</option>
-                                <option value="fleet">Fleet Buyer</option>
-                                <option value="other">Other</option>
-                            </select>
                         </div>
                         <div class="form-group">
                             <textarea id="message" name="message" placeholder="Tell us about your current challenges" rows="4"></textarea>

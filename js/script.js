@@ -26,13 +26,11 @@ document.addEventListener('DOMContentLoaded', function() {
 // ROI Calculator Functionality
 function initializeROICalculator() {
     const inputs = [
-        'annual-dms-spend',
-        'disconnected-systems',
         'vehicles-annually',
         'admin-ftes',
         'avg-vehicle-value',
-        'daily-interest-rate',
-        'processing-days'
+        'annual-interest-rate',
+        
     ];
     
     // Add event listeners to all inputs
@@ -49,37 +47,34 @@ function initializeROICalculator() {
 
 function calculateROI() {
     // Get input values
-    const annualDMSSpend = parseFloat(document.getElementById('annual-dms-spend')?.value) || 500000;
-    const disconnectedSystems = parseInt(document.getElementById('disconnected-systems')?.value) || 7;
     const vehiclesAnnually = parseInt(document.getElementById('vehicles-annually')?.value) || 500;
     const adminFTEs = parseFloat(document.getElementById('admin-ftes')?.value) || 3;
-    const avgVehicleValue = parseFloat(document.getElementById('avg-vehicle-value')?.value) || 75000;
-    const dailyInterestRate = parseFloat(document.getElementById('daily-interest-rate')?.value) || 0.02;
-    const processingDays = parseInt(document.getElementById('processing-days')?.value) || 14;
+    const avgVehicleValue = parseFloat(document.getElementById('avg-vehicle-value')?.value) || 50000;
+    const annualInterestRate = parseFloat(document.getElementById('annual-interest-rate')?.value) || 8; // % per year
     
     // Constants based on Pritchard case study and industry benchmarks
     const avgFTESalary = 65000; // Average FTE salary including benefits
     const hoursPerWeek = 40;
     const weeksPerYear = 52;
-    const timeReductionPercentage = 0.88; // 88% time reduction
+    const hoursSavedPerWeek = 8; // Fixed time savings per FTE per week
     const additionalUnitsPerSalesperson = 70; // Additional units per salesperson annually
     const avgProfitMargin = 0.15; // 15% profit margin
     const errorReductionValue = 50000; // Annual value from error reduction
     const processingTimeReduction = 3; // Days saved in processing time
     
-    // 1. People Savings Calculation
-    const totalFTEHours = adminFTEs * hoursPerWeek * weeksPerYear;
-    const hoursSaved = totalFTEHours * timeReductionPercentage;
+    // 1. People Savings Calculation: FTEs * Hourly Rate * 8 hours * 52 weeks
     const hourlyRate = avgFTESalary / (hoursPerWeek * weeksPerYear);
-    const peopleSavings = hoursSaved * hourlyRate;
+    const peopleSavings = adminFTEs * hourlyRate * hoursSavedPerWeek * weeksPerYear;
     
     // 2. Product Savings Calculation (Interest cost savings)
-    const dailyInterestCost = (avgVehicleValue * (dailyInterestRate / 100));
+    // Convert annual interest rate to daily rate approximation (simple division by 365)
+    const dailyInterestRate = (annualInterestRate / 100) / 365;
+    const dailyInterestCost = (avgVehicleValue * dailyInterestRate);
     const productSavings = processingTimeReduction * dailyInterestCost * vehiclesAnnually;
     
-    // 3. Productivity Gains Calculation
+    // 3. Productivity Gains Calculation (removed from simplified view)
     const additionalRevenue = (additionalUnitsPerSalesperson * avgVehicleValue * avgProfitMargin) * adminFTEs;
-    const productivityGains = additionalRevenue + errorReductionValue;
+    const productivityGains = 0;
     
     // Total calculations
     const totalSavings = peopleSavings + productSavings + productivityGains;
@@ -93,10 +88,8 @@ function calculateROI() {
         platformCost = 120000; // Enterprise tier
     }
     
-    const roiPercentage = ((totalSavings - platformCost) / platformCost) * 100;
-    
     // Update the display
-    updateROIDisplay(roiPercentage, totalSavings, peopleSavings, productSavings, productivityGains, disconnectedSystems);
+    updateROIDisplay(undefined, totalSavings, peopleSavings, productSavings, undefined, undefined);
 }
 
 function updateROIDisplay(roi, total, people, product, productivity, systems) {
@@ -109,9 +102,7 @@ function updateROIDisplay(roi, total, people, product, productivity, systems) {
         return Math.round(Math.max(0, num));
     };
     
-    // Update ROI percentage
-    const roiElement = document.getElementById('roi-percentage');
-    if (roiElement) roiElement.textContent = formatPercentage(roi);
+    // ROI percentage removed from simplified view
     
     // Update total savings
     const totalElement = document.getElementById('total-savings');
@@ -124,40 +115,31 @@ function updateROIDisplay(roi, total, people, product, productivity, systems) {
     const productElement = document.getElementById('product-savings');
     if (productElement) productElement.textContent = formatCurrency(product);
     
-    const productivityElement = document.getElementById('productivity-gains');
-    if (productivityElement) productivityElement.textContent = formatCurrency(productivity);
+    // Productivity gains removed from simplified view
     
-    // Update system reduction display
-    const systemElement = document.getElementById('system-reduction');
-    if (systemElement) systemElement.textContent = systems;
+    // Additional benefits section removed
+
+    // Info tooltips removed per request
 }
 
 function generateReport() {
     // Get current values for the report
-    const roi = document.getElementById('roi-percentage')?.textContent || '167';
     const totalSavings = document.getElementById('total-savings')?.textContent || '2,340,000';
     const peopleSavings = document.getElementById('people-savings')?.textContent || '353,210';
     const productSavings = document.getElementById('product-savings')?.textContent || '978,000';
-    const productivityGains = document.getElementById('productivity-gains')?.textContent || '1,008,000';
+    
     
     // Create a simple report (in a real implementation, this would generate a PDF)
     const reportContent = `
 SHAED ROI Calculator Report
 ==========================
 
-Your Projected Annual ROI: ${roi}%
 Total Annual Value: $${totalSavings}
 
 Savings Breakdown:
 - People Savings: $${peopleSavings}
 - Product Savings: $${productSavings}
-- Productivity Gains: $${productivityGains}
-
-Additional Benefits:
-- 40+ Manual Steps Eliminated per Sale
-- System Consolidation (Multiple Systems → 1 Platform)
-- 88% Time Reduction in Administrative Tasks
-- 4.6/5 Customer Satisfaction Rating
+ 
 
 Next Steps:
 1. Schedule a personalized demo
@@ -218,7 +200,7 @@ document.getElementById('demo-form').addEventListener('submit', function(e) {
     const data = Object.fromEntries(formData);
     
     // Basic validation
-    if (!data.name || !data.email || !data.company || !data.phone || !data['dealer-type']) {
+    if (!data.name || !data.email || !data.company || !data.phone) {
         alert('Please fill in all required fields.');
         return;
     }
@@ -229,12 +211,55 @@ document.getElementById('demo-form').addEventListener('submit', function(e) {
         alert('Please enter a valid email address.');
         return;
     }
-    
-    // Show success message (in a real implementation, this would send to a server)
-    alert('Thank you for your interest! We will contact you within 24 hours to schedule your demo.');
-    
-    // Reset form
-    this.reset();
+
+    // Attempt server-side delivery via FormSubmit; fallback to mailto
+    const sendViaFormSubmit = async () => {
+        try {
+            const response = await fetch('https://formsubmit.co/ajax/eddie.schick@shaed.ai', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: data.name,
+                    email: data.email,
+                    company: data.company,
+                    phone: data.phone,
+                    message: data.message || ''
+                })
+            });
+            if (response.ok) {
+                alert('Thanks! Your demo request was sent. We\'ll be in touch shortly.');
+                this.reset();
+                return true;
+            }
+            return false;
+        } catch (err) {
+            return false;
+        }
+    };
+
+    const fallbackMailto = () => {
+        const subject = encodeURIComponent('New SHAED Demo Request');
+        const bodyLines = [
+            `Name: ${data.name}`,
+            `Email: ${data.email}`,
+            `Company: ${data.company}`,
+            `Phone: ${data.phone}`,
+            '',
+            'Message:',
+            (data.message || '')
+        ];
+        const body = encodeURIComponent(bodyLines.join('\n'));
+        window.open(`mailto:eddie.schick@shaed.ai?subject=${subject}&body=${body}`, '_self');
+        alert('A pre-filled email to eddie.schick@shaed.ai has been opened. Please click send in your email client.');
+        this.reset();
+    };
+
+    sendViaFormSubmit().then((ok) => {
+        if (!ok) fallbackMailto();
+    });
 });
 
 // Button click handlers for CTAs
