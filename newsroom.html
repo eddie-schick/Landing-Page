@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHAED</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .article-full {
+            display: none;
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            margin-top: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        .article-full.active {
+            display: block;
+        }
+        .article-full h2 {
+            color: #2d3748;
+            margin-bottom: 1rem;
+        }
+        .article-full .article-meta {
+            color: #2FC774;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f1f5f9;
+        }
+        .article-full p {
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: #4a5568;
+        }
+        .article-full .quote {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-left: 4px solid #2FC774;
+            margin: 2rem 0;
+            font-style: italic;
+        }
+        .article-full .quote strong {
+            color: #2d3748;
+        }
+        .back-button {
+            background: #2FC774;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+        .back-button:hover {
+            background: #26a85f;
+        }
+        .news-article {
+            cursor: pointer;
+        }
+        .news-article:hover h3 {
+            color: #2FC774;
+        }
+        .read-more {
+            color: #2FC774;
+            font-weight: 600;
+            margin-top: 1rem;
+            display: inline-block;
+        }
+        .read-more:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html" aria-label="Go to home">
+                    <img src="images/SHAEDLogo.png" alt="SHAED" class="logo">
+                </a>
+            </div>
+            <nav class="nav-menu">
+                <a href="index.html#features" class="nav-link">Products</a>
+                <a href="index.html#pricing" class="nav-link">Pricing</a>
+                <a href="index.html#results" class="nav-link">Results</a>
+                <a href="team.html" class="nav-link">Our Team</a>
+                <a href="newsroom.html" class="nav-link">Newsroom</a>
+                <a href="index.html#contact" class="nav-link">Contact</a>
+                <button class="cta-button">Request Demo</button>
+            </nav>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Newsroom Section -->
+    <section id="newsroom" class="newsroom" style="padding-top: 120px;">
+        <div class="container">
+            <div class="section-header">
+                <h1>Newsroom</h1>
+                <p>Stay updated with the latest SHAED news, announcements, and industry insights</p>
+            </div>
+            
+            <!-- Article List View -->
+            <div id="article-list" class="news-grid">
+                <article class="news-article" onclick="showArticle('article3')">
+                    <div class="article-date">July 23, 2025</div>
+                    <h3>SHAED Renews CALSTART Membership to Accelerate Commercial EV Adoption and Expand Access to Key Incentives</h3>
+                    <p>SHAED, the technology platform powering CommercialEVs.com, is proud to continue its membership with CALSTART, a national clean transportation nonprofit that works with industry, fleets, and governments to build a more sustainable transportation future.</p>
+                    <div class="article-highlights">
+                        <ul>
+                            <li>Renewed membership with CALSTART to accelerate clean transportation</li>
+                            <li>Access to flagship programs including HVIP and ISEF incentive programs</li>
+                            <li>Collaboration to build more equitable and efficient electrified future</li>
+                            <li>Enhanced access to funding and compliance opportunities for customers</li>
+                        </ul>
+                    </div>
+                    <div class="article-footer">
+                        <span class="article-category">Partnership</span>
+                        <span class="article-category">Sustainability</span>
+                    </div>
+                    <div class="read-more">Click to read full article →</div>
+                </article>
+                
+                <article class="news-article" onclick="showArticle('article2')">
+                    <div class="article-date">August 27, 2024</div>
+                    <h3>Parker Wallin Joins New Team with Major Brand Partner Backing</h3>
+                    <p>We're pleased to announce rising formula racing talent Parker Wallin's official entry in the final race of the Ligier JS F4 Series 2024 season at the iconic Circuit of The Americas (COTA) track in Austin, Texas.</p>
+                    <div class="article-highlights">
+                        <ul>
+                            <li>SHAED sponsors Parker Wallin in Formula racing</li>
+                            <li>Partnership with Momentum Motorsports team</li>
+                            <li>Race debut at Circuit of The Americas (COTA)</li>
+                            <li>Custom branded F4 race car featuring SHAED graphics</li>
+                        </ul>
+                    </div>
+                    <div class="article-footer">
+                        <span class="article-category">Partnership</span>
+                        <span class="article-category">Motorsports</span>
+                    </div>
+                    <div class="read-more">Click to read full article →</div>
+                </article>
+                
+                <article class="news-article" onclick="showArticle('article1')">
+                    <div class="article-date">May 14, 2024</div>
+                    <h3>SHAED Unveils Mobility Platform, Backed by $5.7M in Seed Funding</h3>
+                    <p>SHAED, a pioneering platform that enables the future of mobility, is proudly unveiling its first marketplace product, CommercialEVs.com. This product is part of a first-of-its-kind solution aimed at transforming the transportation industry.</p>
+                    <div class="article-highlights">
+                        <ul>
+                            <li>Launch of CommercialEVs.com marketplace</li>
+                            <li>$5.7M Seed funding led by EnerTech Capital</li>
+                            <li>Platform integrates physical, technological, and operational aspects of mobility</li>
+                            <li>AI-driven recommendation engines and digitization of legacy processes</li>
+                        </ul>
+                    </div>
+                    <div class="article-footer">
+                        <span class="article-category">Funding</span>
+                        <span class="article-category">Product Launch</span>
+                    </div>
+                    <div class="read-more">Click to read full article →</div>
+                </article>
+            </div>
+
+            <!-- Full Article Views -->
+            <div id="article3" class="article-full">
+                <button class="back-button" onclick="showArticleList()">← Back to Newsroom</button>
+                <div class="article-meta">Minneapolis, July 23, 2025</div>
+                <h2>SHAED Renews CALSTART Membership to Accelerate Commercial EV Adoption and Expand Access to Key Incentives</h2>
+                
+                <p>SHAED, the technology platform powering CommercialEVs.com, is proud to continue its membership with CALSTART, a national clean transportation nonprofit that works with industry, fleets, and governments to build a more sustainable transportation future. With a goal to transform sustainable transportation, this renewal reaffirms our collective commitment to accelerate clean transportation solutions.</p>
+
+                <p>CALSTART is a mission-driven organization focused on building and scaling a clean, high-impact transportation industry that creates faster economic growth, creates jobs, and reduces emissions worldwide. With more than 240 member companies, ranging from start-ups to global leaders, CALSTART is a trusted partner in developing policies, programs, and technologies that accelerate deployment of clean transportation solutions.</p>
+
+                <h3>Strategic Partnership for Commercial EV Adoption</h3>
+                <p>SHAED joined CALSTART to deepen its commitment to commercial EV adoption and to ensure its online marketplace, <a href="https://commercialevs.com" target="_blank">CommercialEVs.com</a>, and fleet services remain aligned with the most up-to-date policy guidance, incentive programs, and zero-emission vehicle (ZEV) deployment trends. As a member, SHAED gains access to the think tank alongside key decision-makers, helping shape the future of transportation electrification.</p>
+
+                <div class="quote">
+                    <p><strong>"SHAED's decision to renew their membership reflects the enduring strength of our Shared Values," said Wendy Wilson, VP of External Affairs at CALSTART.</strong> "Their continued trust in our organization fuels our mission to provide unparalleled value and foster meaningful industry connections."</p>
+                </div>
+
+                <h3>Access to Key Incentive Programs</h3>
+                <p>CALSTART administers several flagship programs in California and beyond, including the Hybrid and Zero-Emission Truck and Bus Voucher Incentive Project (HVIP) and the Innovative Small E-Fleet (ISEF) program - two critical funding sources that make EV adoption more accessible and affordable for small and midsize fleets.</p>
+
+                <p>CommercialEVs.com, SHAED's online marketplace, helps buyers compare and purchase eligible commercial EVs, chargers, and incentives – all in one place. The platform's Resource Center plans education and digital tools with expert support, helping fleet owners and managers find the right vehicles to maximize their savings.</p>
+
+                <h3>Enhanced Customer Benefits</h3>
+                <p>By becoming a CALSTART member, SHAED will have early access to program updates, deeper insight into funding opportunities, timelines, and requirements, and the ability to directly engage with CALSTART's policy and implementation teams – ensuring SHAED customers are always in the forefront of funding and compliance opportunities.</p>
+
+                <div class="quote">
+                    <p><strong>"Our CALSTART membership reinforces SHAED's commitment to simplifying fleet electrification,"</strong> said Ryan Pritchard, CEO of SHAED. <strong>"We're here to ensure our customers don't just find the right vehicle – they also take advantage of every dollar and policy benefit available."</strong></p>
+                </div>
+
+                <p>SHAED is excited to collaborate with CALSTART and its member network to build a more equitable, efficient, and electrified future for commercial fleets across the country.</p>
+
+                <h3>About SHAED</h3>
+                <p>SHAED is transforming sustainable transportation by digitizing legacy processes and leveraging AI-driven recommendation engines. Its marketplace, CommercialEVs.com, seamlessly integrates across the commercial transportation value chain, empowering fleet managers to adopt sustainable mobility solutions with ease. With deep industry expertise, SHAED provides the tools and insights needed to streamline fleet procurement, management, and operations, while simplifying the ecosystem to simplify commercial vehicle procurement, while creating a greener, more efficient future for fleets across the country.</p>
+
+                <h3>About CALSTART</h3>
+                <p>A mission-driven industry organization focused on transportation decarbonization and clean air for all, CALSTART has offices in New York, Michigan, Colorado, California, Florida, and Europe. CALSTART is uniquely positioned to build the national clean transportation industry by working closely with its more than 240 member companies and building on the lessons learned from the major programs it manages for the State of California. CALSTART manages more than $1 billion in vehicle incentive and technical assistance programs in the United States and is leading a global effort to build the zero-emission commercial vehicle market.</p>
+
+                <h3>Media Contact</h3>
+                <p><strong>Eddie Schick</strong><br>
+                Chief Financial Officer<br>
+                info@shaed.ai</p>
+            </div>
+
+            <div id="article1" class="article-full">
+                <button class="back-button" onclick="showArticleList()">← Back to Newsroom</button>
+                <div class="article-meta">Minneapolis, May 14, 2024</div>
+                <h2>SHAED Unveils Mobility Platform, Backed by $5.7M in Seed Funding</h2>
+                
+                <p>SHAED, a pioneering platform that enables the future of mobility, is proudly unveiling its first marketplace product, CommercialEVs.com. This product is part of a first-of-its-kind solution aimed at transforming the transportation industry. SHAED's innovative approach connects all stakeholders and stages within the lifecycle of commercial vehicles, seamlessly integrating the physical, technological and operational aspects of mobility.</p>
+
+                <p>SHAED, which stands for Shared, Hydrogen, Autonomous, Electric, and Distribution, is redefining the way we think about sustainable transportation through education, the digitization of legacy processes and AI-driven recommendation engines.</p>
+
+                <h3>The Journey: From Concept to Ecosystem</h3>
+                <p>The SHAED team draws on extensive experience from all aspects of the commercial transportation sector. Recognizing the disruptions and challenges inherent to this evolving industry, the SHAED platform creates a collaborative environment, leading with its marketplace solution. The SHAED marketplace is the first product launched from its robust roadmap, which offers a comprehensive solution addressing:</p>
+
+                <p><strong>Product Lifecycle:</strong> Starting with the initial concept and continuing through manufacturing, upfitting, charging, and support services. SHAED's product roadmap covers the entire vehicle journey from acquisition to disposition.</p>
+
+                <p><strong>Software and Tools:</strong> SHAED recognizes that the shift to sustainable energy disrupts traditional processes and tools. The company's solution facilitates the digitization of legacy processes, leveraging modern architecture to infuse AI into workflows, streamlining operations, and enabling automation.</p>
+
+                <p><strong>Sustainable and Profitable:</strong> SHAED's platform empowers businesses to transition responsibly to sustainable solutions, catering to users at every stage of the process. By optimizing the customer journey, SHAED enables users to reduce their carbon footprint today while enhancing profitability for tomorrow.</p>
+
+                <h3>CommercialEVs.com Marketplace</h3>
+                <p>SHAED is thrilled to announce the launch of CommercialEVs.com, an innovative marketplace crafted on modern platform architecture. Its product infrastructure fosters engagement among all stakeholders in a standardized, collaborative environment, simplifying the successful deployment of EVs at scale. With a dedicated focus on providing comprehensive resources, education, and performance transparency, SHAED is committed to empowering businesses to embrace sustainable mobility solutions.</p>
+
+                <h3>The Power of AI and Future Growth</h3>
+                <p>SHAED's platform is built to accommodate the accelerating capabilities of AI, providing the framework for future recommendation engines and delivering a seamless end-to-end digital experience. Developed collaboratively by top-tier developers and industry experts, SHAED is finely tuned to address and adapt to specialized challenges inherent in the mobility sector.</p>
+
+                <h3>From Industry to Ecosystem</h3>
+                <p>Clean energy vehicles necessitate a departure from conventional problem-solving approaches within specific industries toward embracing an ecosystem mindset, characterized by interoperability across multiple domains. SHAED's ecosystem harnesses a diverse array of expertise, resources, and perspectives to confront the intricate challenges within mobility, transcending traditional industry silos. The mobility platform fosters a dynamic and adaptive environment, facilitating rapid scaling and adaptation as new technology emerges.</p>
+
+                <h3>People-Centered Progress</h3>
+                <p>SHAED's vision is not just about technology and infrastructure but about people. By fostering meaningful conversations and offering solutions that address real-world needs, SHAED empowers businesses and individuals with the essential tools to navigate the evolving landscape of sustainable mobility.</p>
+
+                <div class="quote">
+                    <p><strong>Ryan Pritchard, CEO:</strong> "SHAED's mission aligns with the urgency of our times, catalyzing the shift toward a sustainable future. By fusing the most advanced technologies, we're not just predicting the future; we're actively creating it. Our platform doesn't just adapt to changes; it drives them, ensuring that every participant in the mobility ecosystem can thrive amidst rapid evolution."</p>
+                </div>
+
+                <h3>Series Seed Funding</h3>
+                <p>SHAED has been funded by a $5.7 million Seed Preferred round, which closed in 2023 and was led by EnerTech Capital, along with Powerhouse Ventures, Joe Pritchard, CEO of Pritchard Companies and two undisclosed corporate strategic partners.</p>
+
+                <p><strong>For more information, please contact:</strong><br>
+                Eddie Schick, CFO<br>
+                Email: info@shaed.ai<br>
+                <a href="https://shaed.ai" target="_blank">shaed.ai</a><br>
+                <a href="https://commercialevs.com" target="_blank">commercialevs.com</a></p>
+            </div>
+
+            <div id="article2" class="article-full">
+                <button class="back-button" onclick="showArticleList()">← Back to Newsroom</button>
+                <div class="article-meta">Minneapolis – August 27, 2024</div>
+                <h2>Parker Wallin Joins New Team with Major Brand Partner Backing</h2>
+                
+                <p>We're pleased to announce rising formula racing talent Parker Wallin's official entry in the final race of the Ligier JS F4 Series 2024 season at the iconic Circuit of The Americas (COTA) track in Austin, Texas. This marks a significant step in Wallin's racing career in the F1 development ladder with the newly committed partnership support of SHAED, an innovator in sustainable fleet solutions. To leverage the SHAED partnership, Wallin joins Momentum Motorsports, a team renowned for its competitive edge and commitment to developing future champions led by Phil Picard, a proven team principal and engineer committed to giving drivers the best chance to succeed. With this new team and high-profile sponsor, Wallin has secured what a young driver needs to accelerate.</p>
+
+                <div class="quote">
+                    <p><strong>Parker Wallin:</strong> "I'm incredibly excited to join SHAED and to have the faith and confidence of Ryan Pritchard, a business visionary, who has decided to bring me on board his journey of innovation. This is a huge opportunity for me, and I want to return that faith by giving it everything I've got. I've already begun development with my new team owner Phil Picard. I've admired Phil for a long time, and this is an opportunity to make a big impact together for Ryan and the SHAED brand."</p>
+                </div>
+
+                <div class="quote">
+                    <p><strong>Ryan Pritchard, SHAED founder and CEO:</strong> "Parker embodies the innovative spirit and rapid acceleration that defines SHAED. This partnership perfectly aligns our visions: just as Parker and JS F4 represent the future of F1, SHAED is pioneering the future of fleet mobility."</p>
+                </div>
+
+                <p>Momentum Motorsports team Principal Phil Picard expressed confidence in Parker's abilities, stating, "Parker is a talented driver with a bright future ahead of him. We're thrilled to have him on our team and look forward to what we can achieve together."</p>
+
+                <p>SHAED VP of Sales John Kinsey added, "SHAED is moving fast to shape the future with emerging technology. Putting our brand on this iconic circuit is a perfect demonstration of how we're innovating at incredible speeds."</p>
+
+                <h3>Custom Branding and Professional Partnership</h3>
+                <p>To showcase the new partnership, Wallin's F4 race car has been newly branded, featuring custom graphics designed by Brand Ink, a leader in the field. The vinyl graphics livery kit was crafted using state-of-the-art 3M materials and installed by internationally recognized master trainer Phil Aquin of FAST Films. This stunning vehicle will make its debut at COTA on October 31, 2024, just two weeks after the Formula 1 Grand Prix.</p>
+
+                <p>As the race approaches, fans and followers of formula racing will be eagerly watching Wallin's progress, anticipating a thrilling and competitive performance from all the young drivers in the JS F4 Series. For information and tickets for the COTA SpeedTour event October 31-November 3, visit jsf4series.com.</p>
+
+                <h3>About Parker Wallin</h3>
+                <p>After two and a half prolific seasons in kart racing, including a final podium in Minnesota and two consecutive first place finishes and a second-place championship in Southern California, 17-year-old Parker Wallin, from Minneapolis, Minnesota, joined the JSF4 Series with impressive speeds making his mark at the first two races of the 2024 season - NOLA Motorsports Park and Road America. He's since continued to build his career off track pending funding support, co-commentating in the broadcast booth and building his relationships with the series organizers and ultimately forging the new partnership with SHAED that will allow him to compete at COTA in the final race of the season.</p>
+
+                <h3>About SHAED Inc.</h3>
+                <p>SHAED is revolutionizing sustainable transportation through its innovative platform that integrates the physical, technological, and operational aspects of mobility throughout its lifecycle. By connecting all stakeholders in the fleet mobility ecosystem, SHAED redefines sustainable transportation through education, digitization of legacy processes, and AI-driven recommendation engines. Committed to simplifying sustainable mobility, SHAED drives efficiency today while enabling sustainability tomorrow, providing a centralized, intelligent platform that accelerates the industry's transition to cleaner, more sustainable transportation solutions.</p>
+
+                <p>For information and sales inquiries visit: <a href="https://shaed.ai" target="_blank">shaed.ai</a></p>
+
+                <h3>About Momentum Motorsports</h3>
+                <p>Momentum Motorsports is owned and operated by long-time racing enthusiast Phil Picard. As a former driver turned business owner, Phil understands the motorsports industry and what is needed for success both on and off the track. He is involved in every aspect to ensure that his drivers have the best chance possible to learn and garner the results that they deserve. He was not only a racer and a race team owner but also holds an Automotive Engineering Degree and two open wheel championships. Located in Kershaw, South Carolina, Momentum Motorsports is trackside at Carolina Motorsports Park.</p>
+
+                <h3>About Ligier JS F4 Series</h3>
+                <p>Sanctioned by Parella Motorsports Holdings (PMH), the Ligier JS F4 Series provides an entry point to the ladder system that leads to the top levels of open-wheel competition. A step between karting and the wheel-to-wheel racing of Formula 4 United States Championship (F4 U.S.), the Ligier JS F4 Series focuses on laying a proper foundation for race craft and education, as much as it does on track competition. Open to drivers as young as age 14, the series utilizes a cost-efficient model to further develop driver's skills with a lower cost of entry. The 2024 Ligier JS F4 Series driver champion will be awarded a full scholarship to compete in the 2025 season of F4 U.S. competition.</p>
+
+                <p><strong>For more information, please contact:</strong><br>
+                Richard Wallin<br>
+                Owner, Team W2 Racing<br>
+                Email: info@teamw2racing.com</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="SHAEDLogo.png" alt="SHAED" class="footer-logo">
+                    <p>Powering the Future of Mobility</p>
+                    <p>The only integrated platform built specifically for commercial dealers.</p>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/company/shaed" target="_blank" rel="noopener noreferrer" class="social-link" style="color: white;">
+                            <i class="fab fa-linkedin"></i> Follow us on LinkedIn
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                <div class="footer-column">
+                    <h4>Platform</h4>
+                    <ul>
+                        <li><a href="index.html#features">Order Management</a></li>
+                        <li><a href="index.html#features">Digital Deal Jackets</a></li>
+                        <li><a href="index.html#features">Upfit Portal</a></li>
+                        <li><a href="index.html#features">CPQ</a></li>
+                        <li><a href="index.html#features">Marketplace</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="team.html">Our Team</a></li>
+                        <li><a href="newsroom.html">Newsroom</a></li>
+                        <li><a href="index.html#results">Case Studies</a></li>
+                        <li><a href="index.html#pricing">Pricing</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
+                        <li><a href="#">About</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://resource.commercialevs.com/" target="_blank" rel="noopener noreferrer">Commercial EVs Resource Center</a></li>
+                    </ul>
+                </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 SHAED. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="GTCs.html">Terms and Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script>
+        function showArticle(articleId) {
+            // Hide article list
+            document.getElementById('article-list').style.display = 'none';
+            
+            // Hide all articles
+            const articles = document.querySelectorAll('.article-full');
+            articles.forEach(article => article.classList.remove('active'));
+            
+            // Show selected article
+            document.getElementById(articleId).classList.add('active');
+        }
+
+        function showArticleList() {
+            // Show article list
+            document.getElementById('article-list').style.display = 'grid';
+            
+            // Hide all full articles
+            const articles = document.querySelectorAll('.article-full');
+            articles.forEach(article => article.classList.remove('active'));
+        }
+    </script>
+</body>
+</html>
+
