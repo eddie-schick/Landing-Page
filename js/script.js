@@ -191,52 +191,104 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Form handling
-document.getElementById('demo-form').addEventListener('submit', function(e) {
+// Simple toast helper
+function showToast(message, type) {
+    const root = document.getElementById('toast-root');
+    if (!root) { alert(message); return; }
+    const el = document.createElement('div');
+    el.className = 'toast ' + (type || 'info');
+    el.textContent = message;
+    root.appendChild(el);
+    setTimeout(() => {
+        el.classList.add('toast-hide');
+        setTimeout(() => root.removeChild(el), 220);
+    }, 3500);
+}
+// expose globally for inline handlers
+window.showToast = showToast;
+
+// Form handling (guard for pages without the demo form)
+const demoForm = document.getElementById('demo-form');
+if (demoForm) demoForm.addEventListener('submit', function(e) {
     e.preventDefault();
     
+    // Removed blocking alert; rely on toasts
+    console.log('[demo-form] submit handler fired');
+
     // Get form data
     const formData = new FormData(this);
     const data = Object.fromEntries(formData);
     
     // Basic validation
     if (!data.name || !data.email || !data.company || !data.phone) {
-        alert('Please fill in all required fields.');
+        showToast('Please fill in all required fields.', 'error');
         return;
     }
     
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(data.email)) {
-        alert('Please enter a valid email address.');
+        showToast('Please enter a valid email address.', 'error');
         return;
     }
 
-    // Attempt server-side delivery via FormSubmit; fallback to mailto
+    // Debounce submit to avoid rapid repeats
+    const submitBtn = this.querySelector('button[type="submit"]');
+    if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
+        setTimeout(() => {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Request Demo';
+        }, 4000);
+    }
+
+    // Attempt server-side delivery (Web3Forms). If it fails due to network, fall back to mailto.
     const sendViaFormSubmit = async () => {
         try {
-            const response = await fetch('https://formsubmit.co/ajax/eddie.schick@shaed.ai', {
+            const accessKeyInput = document.querySelector('#demo-form input[name="access_key"]');
+            const access_key = accessKeyInput ? accessKeyInput.value : '';
+            const payload = {
+                access_key,
+                subject: 'New SHAED Demo Request',
+                name: data.name,
+                email: data.email,
+                company: data.company,
+                phone: data.phone,
+                message: data.message || ''
+            };
+
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 8000);
+            const response = await fetch('https://api.web3forms.com/submit', {
                 method: 'POST',
+                mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 },
-                body: JSON.stringify({
-                    name: data.name,
-                    email: data.email,
-                    company: data.company,
-                    phone: data.phone,
-                    message: data.message || ''
-                })
+                body: JSON.stringify(payload),
+                signal: controller.signal
             });
+            clearTimeout(timeoutId);
+
+            const text = await response.text();
+            let json;
+            try { json = JSON.parse(text); } catch (_) { json = null; }
+
             if (response.ok) {
-                alert('Thanks! Your demo request was sent. We\'ll be in touch shortly.');
+                showToast('Thanks! Your demo request was sent. We\'ll be in touch shortly.', 'success');
                 this.reset();
                 return true;
             }
-            return false;
+
+            const msg = (json && (json.message || json.error)) ? (json.message || json.error) : `HTTP ${response.status}: ${text || 'Unknown error'}`;
+            if (response.status === 429 || /rate limit/i.test(msg)) {
+                return false; // silent fallback to email
+            }
+            return false; // silent fallback to email
         } catch (err) {
-            return false;
+            return false; // silent fallback to email
         }
     };
 
@@ -252,13 +304,15 @@ document.getElementById('demo-form').addEventListener('submit', function(e) {
             (data.message || '')
         ];
         const body = encodeURIComponent(bodyLines.join('\n'));
-        window.open(`mailto:eddie.schick@shaed.ai?subject=${subject}&body=${body}`, '_self');
-        alert('A pre-filled email to eddie.schick@shaed.ai has been opened. Please click send in your email client.');
+        window.open(`mailto:info@shaed.ai?subject=${subject}&body=${body}`, '_self');
+        showToast('We opened a pre-filled email to info@shaed.ai. Please click send.', 'info');
         this.reset();
     };
 
     sendViaFormSubmit().then((ok) => {
-        if (!ok) fallbackMailto();
+        if (ok) return;
+        // Do NOT native-post to Web3Forms to avoid leaving the page
+        fallbackMailto();
     });
 });
 
@@ -266,6 +320,12 @@ document.getElementById('demo-form').addEventListener('submit', function(e) {
 document.querySelectorAll('.primary-button, .secondary-button, .cta-button, .pricing-button').forEach(button => {
     button.addEventListener('click', function(e) {
         const buttonText = this.textContent.toLowerCase();
+        
+        // Do not intercept the actual submit button inside the demo form
+        const isSubmitInDemoForm = this.tagName.toLowerCase() === 'button' && this.type === 'submit' && this.closest('#demo-form');
+        if (isSubmitInDemoForm) {
+            return; // allow the form's submit handler/default behavior
+        }
         
         if (buttonText.includes('demo') || buttonText.includes('get started') || buttonText.includes('request')) {
             e.preventDefault();
@@ -447,6 +507,18 @@ document.querySelectorAll('.feature-card').forEach(card => {
 document.querySelectorAll('button[type="submit"]').forEach(button => {
     button.addEventListener('click', function() {
         const originalText = this.textContent;
+        
+        // If this is the demo form submit button, do NOT disable it (disabling at click can block form submission)
+        const inDemoForm = this.closest('#demo-form');
+        if (inDemoForm) {
+            this.textContent = 'Sending...';
+            // Allow the form submission to proceed without disabling the button
+            setTimeout(() => {
+                this.textContent = originalText;
+            }, 2000);
+            return;
+        }
+        
         this.textContent = 'Sending...';
         this.disabled = true;
         
