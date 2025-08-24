@@ -637,7 +637,7 @@ function openProductModal(productId) {
     const productData = {
         'marketplace': {
             title: 'Marketplace',
-            description: 'The front door for dealer acquisition and inventory distribution, serving as a specialized commercial vehicle marketplace.',
+            description: 'The front door for customer acquisition and inventory distribution, serving as a specialized commercial vehicle marketplace.',
             keyFeatures: [
                 '<strong>VIN-based auto-population</strong> via NHTSA integration for automatic data entry',
                 '<strong>DMS integration</strong> for automatic inventory synchronization',
